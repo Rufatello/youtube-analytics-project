@@ -12,18 +12,18 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
-        self.channel_id = channel_id
+        self.__channel_id = channel_id
         self.title = ""
         self.description = ""
         self.subscriber_count = 0
         self.video_count = 0
         self.view_count = 0
-        self.url = f"https://www.youtube.com/channel/{self.channel_id}"
+        self.url = f"https://www.youtube.com/channel/{self.__channel_id}"
         self.print_info()
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
-        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         self.channel_id = channel['items'][0]['id']
         self.title = channel['items'][0]['snippet']['title']
         self.video_count = channel['items'][0]['statistics']['videoCount']
@@ -37,7 +37,7 @@ class Channel:
 
     def to_json(self, filename):
         channel_data = {
-            'id': self.channel_id,
+            'id': self.__channel_id,
             'name': self.title,
             'link': self.url,
             'description': self.description,
