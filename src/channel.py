@@ -18,15 +18,14 @@ class Channel:
         self.subscriber_count = 0
         self.video_count = 0
         self.view_count = 0
-        self.url = ''
+        self.url = f"https://www.youtube.com/channel/{self.channel_id}"
         self.print_info()
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
-        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        channel = youtube.channels().list(id=self.channel_id,  part='snippet,statistics').execute()
         self.channel_id = channel['items'][0]['id']
-        self.title = channel['items'][0]['snippet']['title']
-        self.url = f"https://www.youtube.com/channel/{self.channel_id}",
+        self.title = channel['items'][0]['snippet']['title'],
         self.video_count = channel['items'][0]['statistics']['videoCount']
         self.description = channel['items'][0]['snippet']['description']
         self.view_count = channel['items'][0]['statistics']['viewCount']
@@ -46,5 +45,5 @@ class Channel:
             'subscriber_count': self.subscriber_count
 
         }
-        with open(filename, 'a') as file:
-            json.dump(channel_data, file)
+        with open(filename, 'w', encoding='utf-8') as file:
+            json.dump(channel_data, file, ensure_ascii=False, indent=2)
