@@ -23,9 +23,9 @@ class Channel:
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
-        channel = youtube.channels().list(id=self.channel_id,  part='snippet,statistics').execute()
+        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         self.channel_id = channel['items'][0]['id']
-        self.title = channel['items'][0]['snippet']['title'],
+        self.title = channel['items'][0]['snippet']['title']
         self.video_count = channel['items'][0]['statistics']['videoCount']
         self.description = channel['items'][0]['snippet']['description']
         self.view_count = channel['items'][0]['statistics']['viewCount']
