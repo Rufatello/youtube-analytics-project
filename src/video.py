@@ -10,13 +10,11 @@ class Video:
     def __init__(self, video_id) -> None:
         self.video_id = video_id
         video = youtube.videos().list(id=self.video_id, part='snippet,statistics').execute()
-
-        if 'items' in video:
-            video_data = video['items'][0]
-            self.name = video_data['snippet']['title']
-            self.url = f'https://www.youtube.com/video/{video_id}'
-            self.count_view = video_data['statistics']['viewCount']
-            self.like = video_data['statistics']['likeCount']
+        video_data = video['items'][0]
+        self.name = video_data['snippet']['title']
+        self.url = f'https://www.youtube.com/video/{video_id}'
+        self.count_view = video_data['statistics']['viewCount']
+        self.like = video_data['statistics']['likeCount']
 
     def __str__(self):
         return f'{self.name}'
