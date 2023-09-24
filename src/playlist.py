@@ -11,13 +11,10 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 
 class PlayList:
     def __init__(self, _id) -> None:
-
         self._id = _id
-        playlist_info = youtube.playlists().list(id=_id, part='snippet').execute()
-        if 'items' in playlist_info and playlist_info['items']:
-            playlist_data = playlist_info['items'][0]
-            self.title = playlist_data['snippet']['title']
-        self.url = f'https://www.youtube.com/playlist?list={_id}'
+        playlist_info = youtube.playlists().list(id=self._id, part='snippet').execute()
+        self.title = playlist_info['items'][0]['snippet']['title']
+        self.url = f'https://www.youtube.com/playlist?list={self._id}'
 
     @property
     def total_duration(self):
