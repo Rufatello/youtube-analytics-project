@@ -2,7 +2,6 @@ import os
 from googleapiclient.discovery import build
 from datetime import timedelta
 import isodate
-import operator
 
 # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
 api_key: str = os.getenv('You-Tube-API')
