@@ -4,7 +4,7 @@ import os
 # необходимо установить через: pip install google-api-python-client
 from googleapiclient.discovery import build
 
-#import isodate
+import isodate
 
 
 # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
@@ -72,11 +72,11 @@ docs: https://developers.google.com/youtube/v3/docs/videos/list
 video_response = youtube.videos().list(part='contentDetails,statistics',
                                        id=','.join(video_ids)
                                        ).execute()
-# printj(video_response)
+printj(video_response)
 
 for video in video_response['items']:
     # YouTube video duration is in ISO 8601 format
-    iso_8601_duration = video['contentDetails']['duration']
+    iso_8601_duration = video['contentDetails']['duration']['videoPublishedAt']
     duration = isodate.parse_duration(iso_8601_duration)
     print(duration)
 
